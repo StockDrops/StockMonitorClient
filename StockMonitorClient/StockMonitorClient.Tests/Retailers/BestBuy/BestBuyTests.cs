@@ -23,7 +23,12 @@ public sealed class BestBuyTests
 
         if (response.IsSuccessStatusCode)
         {
-            return;
+            var expected = "{\"buttonStateResponseInfos\":[{\"skuId\":\"6612958\",\"buttonState\":\"PRE_ORDER\",\"displayText\":\"Pre-Order\"}]}";
+            var res = await response.Content.ReadAsStringAsync();
+            if (expected != res)
+            {
+                Assert.Fail("The result is different than expected: {0} \n got: {1}", expected, res);
+            }
         }
         else
         {
